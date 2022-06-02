@@ -2,7 +2,10 @@ package com.atto.atto;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 
 @SpringBootApplication
@@ -12,4 +15,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         SpringApplication.run(AssignmentApplication.class, args);
     }
 
+    @PersistenceContext
+    private EntityManager entityManager;
 }
