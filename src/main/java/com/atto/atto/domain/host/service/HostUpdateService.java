@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class HostUpdateService {
 
     @Transactional
-    public String update(Host host, HostNameAndIpDto dto) {
+    public boolean update(Host host, HostNameAndIpDto dto) {
         host.update(dto);
-        return null;
+        return true;
     }
 }

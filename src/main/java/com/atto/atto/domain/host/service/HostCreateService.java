@@ -15,13 +15,13 @@ public class HostCreateService {
 
     private final HostRepository hostRepository;
 
-    public String create(HostNameAndIpDto dto) {
+    public boolean create(HostNameAndIpDto dto) {
 
         Host host = Host.create(dto);
 
         hostRepository.save(host);
 
-        return "Y";
+        return true;
     }
 
 
