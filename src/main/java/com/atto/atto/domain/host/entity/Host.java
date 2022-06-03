@@ -1,4 +1,4 @@
-package com.atto.atto.domain.entity;
+package com.atto.atto.domain.host.entity;
 
 
 import lombok.AllArgsConstructor;
@@ -14,8 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "t_host")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Host {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
