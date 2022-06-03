@@ -3,6 +3,7 @@ package com.atto.atto.domain.host.service;
 
 import com.atto.atto.domain.host.dto.response.HostDtoAndLastAliveTime;
 import com.atto.atto.domain.host.entity.Host;
+import com.atto.atto.domain.host.repository.HostRepository;
 import com.atto.atto.domain.host.repository.HostRepositorySupport;
 import com.atto.atto.global.error.exception.BusinessException;
 import com.atto.atto.global.error.model.ErrorCode;
@@ -14,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,20 @@ import java.net.UnknownHostException;
 public class HostQueryService {
 
     private final HostRepositorySupport hostRepositorySupport;
+    private final HostRepository hostRepository;
+
+    @Transactional
+    public List<HostDtoAndLastAliveTime> findHostAliveAll(){
+        List<Host> hostList = hostRepository.findAll();
+        hostList.forEach(this::checkAlive);
+       return hostList
+               .stream()
+               .map(host ->
+                       new HostDtoAndLastAliveTime(host,checkAlive(host)
+                       )
+               ).collect(Collectors.toList());
+    }
+
 
     @Transactional
     public HostDtoAndLastAliveTime findHostAliveById(Long id){
@@ -34,6 +51,7 @@ public class HostQueryService {
 
 
     public boolean checkAlive(Host host){
+
         boolean resultPingCheck = false;
 
         InetAddress pingCheck = null;
@@ -46,7 +64,7 @@ public class HostQueryService {
         }
 
         try {
-            if(pingCheck.isReachable(1000)){
+            if(pingCheck.isReachable(1)){
                 resultPingCheck = true;
                 host.updateLastAliveDate();
             }
@@ -56,5 +74,4 @@ public class HostQueryService {
         }
         return resultPingCheck;
     }
-
 }

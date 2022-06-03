@@ -6,6 +6,7 @@ import com.atto.atto.domain.host.dto.response.HostDto;
 import com.atto.atto.domain.host.dto.response.HostDtoAndLastAliveTime;
 import com.atto.atto.domain.host.entity.Host;
 import com.atto.atto.domain.host.service.*;
+import com.atto.atto.global.error.dto.ApiListResponse;
 import com.atto.atto.global.error.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -47,9 +48,14 @@ public class HostApi {
         return new ApiResponse<>(new HostDto(hostQueryService.findById(id)));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/alive/{id}")
     public ApiResponse<HostDtoAndLastAliveTime> findHostAliveById(@PathVariable Long id){
         return new ApiResponse<>(hostQueryService.findHostAliveById(id));
+    }
+
+    @GetMapping("/alive")
+    public ApiListResponse<HostDtoAndLastAliveTime> findHostAliveAll(){
+        return new ApiListResponse<>(hostQueryService.findHostAliveAll());
     }
 
 }

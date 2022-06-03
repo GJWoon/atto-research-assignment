@@ -37,7 +37,6 @@ public class Host {
     @CreatedDate
     private LocalDateTime createdDate;
 
-    @LastModifiedDate
     private LocalDateTime modifiedDate;
 
 
@@ -50,8 +49,12 @@ public class Host {
     public void update(HostNameAndIpDto dto){
         this.ip = dto.getIp();
         this.name = dto.getName();
+        this.modifiedDate = LocalDateTime.now();
     }
     public void updateLastAliveDate(){
         this.lastAliveDate = LocalDateTime.now();
     }
+
+
+    
 }
