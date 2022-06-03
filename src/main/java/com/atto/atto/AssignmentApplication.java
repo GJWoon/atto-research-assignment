@@ -1,5 +1,6 @@
 package com.atto.atto;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,4 +18,8 @@ import javax.persistence.PersistenceContext;
 
     @PersistenceContext
     private EntityManager entityManager;
+    @Bean
+    public JPAQueryFactory jpaQueryFactory() {
+        return new JPAQueryFactory(entityManager);
+    }
 }
