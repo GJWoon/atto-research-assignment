@@ -47,5 +47,9 @@ public class Host {
                 .build();
     }
 
+    public void update(HostNameAndIpDto dto){
+        this.ip = dto.getIp();
+        this.name = dto.getName();
+    }
 
 }

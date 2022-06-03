@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class HostCreateService {
 
-    private final HostRepositorySupport hostRepositorySupport;
     private final HostRepository hostRepository;
 
     public String create(HostNameAndIpDto dto) {
@@ -26,7 +25,4 @@ public class HostCreateService {
     }
 
 
-    public Object update(HostNameAndIpDto dto, Long id) {
-        return null;
-    }
 }
