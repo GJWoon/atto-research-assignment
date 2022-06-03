@@ -18,12 +18,6 @@ public class HostCreateService {
 
     public String create(HostNameAndIpDto dto) {
 
-        checkCount();
-
-        duplicateCheckName(dto.getName());
-
-        duplicateCheckIp(dto.getIp());
-
         Host host = Host.create(dto);
 
         hostRepository.save(host);
@@ -31,28 +25,8 @@ public class HostCreateService {
         return "Y";
     }
 
-    public void checkCount() {
-        long count = hostRepositorySupport.checkCount();
-        if (count == 100) {
-            throw new BusinessException(ErrorCode.MORE_THAN_100);
-        }
+
+    public Object update(HostNameAndIpDto dto, Long id) {
+        return null;
     }
-
-    public void duplicateCheckName(String name) {
-        long count = hostRepositorySupport.countByName(name);
-
-        if (count != 0) {
-            throw new BusinessException(ErrorCode.DUPLICATE_NAME);
-        }
-
-    }
-
-    public void duplicateCheckIp(String ip) {
-        long count = hostRepositorySupport.countByIp(ip);
-        if (count != 0) {
-            throw new BusinessException(ErrorCode.DUPLICATE_IP);
-        }
-    }
-
-
 }
