@@ -40,6 +40,7 @@ public class Host {
     @LastModifiedDate
     private LocalDateTime modifiedDate;
 
+
     public static Host create(HostNameAndIpDto dto) {
         return Host.builder()
                 .ip(dto.getIp())
@@ -50,5 +51,7 @@ public class Host {
         this.ip = dto.getIp();
         this.name = dto.getName();
     }
-
+    public void updateLastAliveDate(){
+        this.lastAliveDate = LocalDateTime.now();
+    }
 }

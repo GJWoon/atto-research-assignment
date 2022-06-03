@@ -3,6 +3,7 @@ package com.atto.atto.domain.host.api;
 
 import com.atto.atto.domain.host.dto.request.HostNameAndIpDto;
 import com.atto.atto.domain.host.dto.response.HostDto;
+import com.atto.atto.domain.host.dto.response.HostDtoAndLastAliveTime;
 import com.atto.atto.domain.host.entity.Host;
 import com.atto.atto.domain.host.service.*;
 import com.atto.atto.global.error.dto.ApiResponse;
@@ -44,6 +45,11 @@ public class HostApi {
     @GetMapping("/{id}")
     public ApiResponse<HostDto> findHostById(@PathVariable Long id){
         return new ApiResponse<>(new HostDto(hostQueryService.findById(id)));
+    }
+
+    @GetMapping("/{id}")
+    public ApiResponse<HostDtoAndLastAliveTime> findHostAliveById(@PathVariable Long id){
+        return new ApiResponse<>(hostQueryService.findHostAliveById(id));
     }
 
 }
