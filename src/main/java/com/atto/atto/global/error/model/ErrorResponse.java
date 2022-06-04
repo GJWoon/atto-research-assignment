@@ -26,6 +26,12 @@ public class ErrorResponse {
         this.code = code.getCode();
     }
 
+    public ErrorResponse(String message,int status,String code) {
+        this.message = message;
+        this.status = status;
+        this.code = code;
+    }
+
     public static ErrorResponse of(final ErrorCode code) {
         return new ErrorResponse(code);
     }

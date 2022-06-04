@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/host")
@@ -24,12 +26,11 @@ public class HostApi {
     private final HostDeleteService hostDeleteService;
 
     @PostMapping
-    public ApiResponse<Boolean> createHost(@RequestBody @Validated HostNameAndIpDto dto) {
+    public ApiResponse<Boolean> createHost(@RequestBody @Valid HostNameAndIpDto dto) {
         hostValidateService.checkCount();
         hostValidateService.duplicateCheck(dto);
         return new ApiResponse<>(hostCreateService.create(dto));
     }
-
     @PutMapping("/{id}")
     public ApiResponse<Boolean> updateHost(@RequestBody @Validated HostNameAndIpDto dto,
                                           @PathVariable Long id

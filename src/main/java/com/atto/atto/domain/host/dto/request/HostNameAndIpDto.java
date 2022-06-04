@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -14,7 +15,9 @@ import javax.validation.constraints.NotNull;
 public class HostNameAndIpDto {
 
     @NotNull
+    @NotBlank
     private String name;
     @NotNull
+    @NotBlank
     private String ip;
 }

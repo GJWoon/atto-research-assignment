@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -33,4 +35,23 @@ public class GlobalExceptionHandler {
         final ErrorResponse response = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse>  errorArgumentValid(MethodArgumentNotValidException exception) {
+
+        BindingResult bindingResult = exception.getBindingResult();
+        StringBuilder errorMessage = new StringBuilder();
+        StringBuilder errorCode = new StringBuilder();
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            errorMessage.append(fieldError.getField()).append(":");
+            errorMessage.append(fieldError.getDefaultMessage());
+            errorMessage.append(", ");
+            errorCode.append(fieldError.getField());
+            errorCode.append(" is ");
+            errorCode.append(fieldError.getCode());
+            errorCode.append(", ");
+
+        }
+        return new ResponseEntity<>(new ErrorResponse(errorMessage.toString(),400,errorCode.toString()), HttpStatus.BAD_REQUEST);
+    }
+
 }
