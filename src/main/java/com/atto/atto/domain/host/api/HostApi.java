@@ -32,7 +32,7 @@ public class HostApi {
         return new ApiResponse<>(hostCreateService.create(dto));
     }
     @PutMapping("/{id}")
-    public ApiResponse<Boolean> updateHost(@RequestBody @Validated HostNameAndIpDto dto,
+    public ApiResponse<Boolean> updateHost(@RequestBody @Valid HostNameAndIpDto dto,
                                           @PathVariable Long id
     ) {
         Host host = hostQueryService.findById(id);
