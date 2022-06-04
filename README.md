@@ -1,6 +1,6 @@
 # 아토리서치 과제
 
-
+sql파일은 resources 폴더에 있습니다.
 
 ## 사용 기술 스텍
 * Spring boot 2.6.7
