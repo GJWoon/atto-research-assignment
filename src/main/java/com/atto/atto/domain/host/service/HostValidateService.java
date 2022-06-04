@@ -20,7 +20,7 @@ public class HostValidateService {
 
     public void checkCount() {
         long count = hostRepositorySupport.checkCount();
-        if (count == 100) {
+        if (count >= 100) {
             throw new BusinessException(ErrorCode.MORE_THAN_100);
         }
     }

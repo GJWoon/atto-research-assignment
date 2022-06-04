@@ -49,7 +49,6 @@ public class GlobalExceptionHandler {
             errorCode.append(" is ");
             errorCode.append(fieldError.getCode());
             errorCode.append(", ");
-
         }
         return new ResponseEntity<>(new ErrorResponse(errorMessage.toString(),400,errorCode.toString()), HttpStatus.BAD_REQUEST);
     }
